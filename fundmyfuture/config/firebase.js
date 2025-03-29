@@ -3,7 +3,7 @@ const serviceAccount = require("./serviceAccountKey.json"); // Download from Fir
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://your-project-id.firebaseio.com"
+  //for future realtimedatabase // databaseURL: "https://your-project-id.firebaseio.com"
 });
 
 const db = admin.firestore();

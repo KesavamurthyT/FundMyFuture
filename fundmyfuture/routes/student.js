@@ -13,7 +13,7 @@ router.post('/apply', async (req, res) => {
         const { name, email, amount_requested } = req.body;
         if (!name || !email || !amount_requested) {
             return res.status(400).json({ error: "All fields are required" });
-        }
+        }       
 
         await db.collection('students').add({
             name,

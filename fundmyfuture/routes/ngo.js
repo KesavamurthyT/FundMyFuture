@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/firebase');
+const authMiddleware = require('../middleware/auth'); // Ensure this path is correct
+
+
+router.get('/dashboard', authMiddleware, (req, res) => {
+    res.json({ message: `Welcome NGO ${req.user.email}` });
+});
 
 // Approve or reject application
 router.put('/approve/:id', async (req, res) => {
