@@ -1,9 +1,12 @@
 {
   "name": "fundmyfuture",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "FundMyFuture Backend",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "echo 'No build step required for backend'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,5 +20,8 @@
     "express": "^4.21.2",
     "firebase-admin": "^13.2.0",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
   }
 }
