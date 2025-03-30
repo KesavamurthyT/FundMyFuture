@@ -1,3 +1,7 @@
+Team Leader:Kesavamurthy T
+Team member:Kumaraguru V S
+Team member:Dhineshwaran S
+
 FundMyFuture
 
 Problem Statement
@@ -7,14 +11,11 @@ Many students from low-income backgrounds struggle to access quality education d
 Solution
 
 FundMyFuture is a web platform that bridges the gap between students in need, NGOs, and donors. It provides a transparent, efficient, and user-friendly system where:
-
 Students can apply for financial aid and track their application status.
-
 NGOs can review and approve/reject applications.
-
 Donors can view verified student applications and contribute directly to their education.
 
-
+LINK TO DRIVE VIDEO:https://drive.google.com/file/d/1txvNm8bHlfyiv9--7KCqbSHLyQqX-eeq/view?usp=sharing
 Tech Stack
 
 Frontend: React, Vite
