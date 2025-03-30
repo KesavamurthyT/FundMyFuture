@@ -10,14 +10,15 @@ services:
       - key: PORT
         value: 5000
       - key: FIREBASE_CONFIG
-        sync: false  # Add in Render dashboard manually
+        sync: false  # Add manually in Render dashboard
 
   - name: fundmyfuture-frontend
-    type: static
+    type: web  # Change 'static' to 'web'
+    env: node  # Ensure it runs in Node.js environment
     repo: https://github.com/KesavamurthyT/FundMyFuture
     branch: main
     buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    startCommand: npm run preview  # Serve built files
     envVars:
       - key: VITE_API_URL
         value: https://fundmyfuture-backend.onrender.com
