@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState } from 'react';
+import LandingPage from './pages/LandingPage'; // Import the LandingPage component
+import LoginForm from './components/LoginForm'; // Import LoginForm component
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+
   return (
     <div>
-      <h1>Welcome to FundMyFuture 🎉</h1>
-      <p>Empowering financial independence for the future.</p>
-      <button>Get Started</button>
+      {!isLoggedIn ? (
+        <>
+          <LandingPage /> {/* Render the LandingPage component */}
+          <button
+            onClick={() => setIsLoggedIn(true)}
+            className="mt-4 p-2 bg-blue-500 text-white rounded"
+          >
+            Go to Login
+          </button>
+        </>
+      ) : (
+        <LoginForm /> // Render the LoginForm component if logged in
+      )}
     </div>
   );
 }
