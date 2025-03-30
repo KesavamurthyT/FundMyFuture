@@ -68,11 +68,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Tailwind CSS Imports */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Light Mode Styles */
 @media (prefers-color-scheme: light) {
   :root {
