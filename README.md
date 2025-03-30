@@ -16,6 +16,8 @@ NGOs can review and approve/reject applications.
 Donors can view verified student applications and contribute directly to their education.
 
 LINK TO DRIVE VIDEO:https://drive.google.com/file/d/1txvNm8bHlfyiv9--7KCqbSHLyQqX-eeq/view?usp=sharing
+LINK TO PROJECT IMAGE : https://drive.google.com/file/d/1gZ7HYPPkW35G6D4NKUJ0XaS4AFaUygF9/view?usp=drivesdk
+
 Tech Stack
 
 Frontend: React, Vite
