@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
-import LandingPage from './pages/LandingPage'; // Import the LandingPage component
-import LoginForm from './components/LoginForm'; // Import LoginForm component
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';  // Import your Landing Page component
+import LoginForm from './components/LoginForm'; // Import your LoginForm component
+import App from './App.jsx';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
-
   return (
-    <div>
-      {!isLoggedIn ? (
-        <>
-          <LandingPage /> {/* Render the LandingPage component */}
-          <button
-            onClick={() => setIsLoggedIn(true)}
-            className="mt-4 p-2 bg-blue-500 text-white rounded"
-          >
-            Go to Login
-          </button>
-        </>
-      ) : (
-        <LoginForm /> // Render the LoginForm component if logged in
-      )}
-    </div>
+    <Router>
+      <Routes>
+        {/* Route for LandingPage (Entry Page) */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Route for LoginForm */}
+        <Route path="/login" element={<LoginForm />} />
+      </Routes>
+    </Router>
   );
 }
 

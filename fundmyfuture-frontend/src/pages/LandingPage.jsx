@@ -1,7 +1,7 @@
 ﻿// src/pages/LandingPage.jsx
 
 import React, { useState, useEffect } from 'react';
-import './App.css'; // Assuming you still want to use App.css
+import { Link } from 'react-router-dom';
 
 // Main LandingPage Component
 function LandingPage() {
@@ -63,6 +63,15 @@ function LandingPage() {
             <a href="#" className="relative overflow-hidden z-10 px-8 py-3 rounded-full font-semibold text-lg bg-white text-slate-800 shadow-md transition-all duration-400 hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-gray-100 after:rounded-full after:z-[-1] after:transition-all after:duration-400 hover:after:h-full">Donate Now</a>
           </div>
         </div>
+      </section>
+       {/* Login Button (Navigation to Login Page) */}
+       <section className="text-center py-10 bg-gray-100">
+        <Link 
+          to="/login" 
+          className="px-8 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-full shadow-md hover:bg-indigo-700 focus:outline-none"
+        >
+          Login to FundMyFuture
+        </Link>
       </section>
 
       {/* About Section */}

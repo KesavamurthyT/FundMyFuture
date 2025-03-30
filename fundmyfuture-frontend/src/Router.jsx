@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import App from './App';  // Import App component to use in routing
+import LandingPage from './pages/LandingPage';  // Import LandingPage component
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import StudentDashboard from './pages/StudentDashboard';
@@ -11,7 +11,10 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<App />} />  {/* Default route with App component */}
+        {/* Make LandingPage the default entry route */}
+        <Route path="/" element={<LandingPage />} />  {/* This will render the LandingPage at "/" */}
+
+        {/* Other routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
