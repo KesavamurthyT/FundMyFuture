@@ -1,0 +1,23 @@
+services:
+  - name: fundmyfuture-backend
+    type: web
+    env: node
+    repo: https://github.com/KesavamurthyT/FundMyFuture
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: FIREBASE_CONFIG
+        sync: false  # Add in Render dashboard manually
+
+  - name: fundmyfuture-frontend
+    type: static
+    repo: https://github.com/KesavamurthyT/FundMyFuture
+    branch: main
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://fundmyfuture-backend.onrender.com

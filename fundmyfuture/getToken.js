@@ -8,7 +8,7 @@ admin.initializeApp({
 });
 
 // Generate a token for a user (Replace "USER_UID" with an actual UID)
-const userUid = "USER_UID";
+const userUid = "ijD2CCxGrDSjSQDvGVlzrEAugmu1";
 admin.auth().createCustomToken(userUid)
     .then((token) => {
         console.log("Generated JWT Token:", token);
