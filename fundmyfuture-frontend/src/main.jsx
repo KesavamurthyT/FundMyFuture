@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import AppRouter from './Router'; // Import AppRouter for routing
+import LandingPage from './pages/LandingPage';
+
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <AppRouter />  {/* Use AppRouter to handle all routes */}
+    <LandingPage />  {/* Render the App component */}
   </React.StrictMode>
 );

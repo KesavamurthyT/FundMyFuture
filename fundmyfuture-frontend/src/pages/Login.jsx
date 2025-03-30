@@ -1,24 +1,235 @@
-﻿import React, { useState } from 'react'; 
-import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+﻿import React, { useState } from 'react';
+import { Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-// Firebase configuration (Replace with actual values)
+// Your Firebase configuration
+// Replace with your actual Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyA8ECYeY2ZxuVObkRmV4IcmN3Vxc_uuWUs",
-  authDomain: "fundmyfuture-92c11.firebaseapp.com",
-  projectId: "fundmyfuture-92c11",
-  storageBucket: "fundmyfuture-92c11.appspot.com",
-
-  messagingSenderId: "104576243847",
-  appId: "1:104576243847:web:9070416faea62e2a9c4022",
-  measurementId: "G-WTNJN6D80J"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// CSS Styles
+const styles = `
+/* Main container styles */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 1rem;
+}
+
+/* Card styles */
+.card {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.card-content {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Success state */
+.success-card {
+  width: 100%;
+  max-width: 28rem;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.success-icon {
+  width: 4rem;
+  height: 4rem;
+  color: #10b981;
+  margin: 0 auto 1rem auto;
+}
+
+.success-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.success-message {
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+/* Form header */
+.form-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+/* Form layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Error message */
+.error-message {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: #ef4444;
+  background-color: #fee2e2;
+  border-radius: 0.375rem;
+}
+
+/* Form fields */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-top: 0.25rem;
+}
+
+.input-icon-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  pointer-events: none;
+}
+
+.input-icon-left svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #9ca3af;
+}
+
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px #6366f1;
+}
+
+.password-field {
+  padding-right: 2.5rem;
+}
+
+.input-icon-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 0.75rem;
+}
+
+.toggle-password {
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-password:hover {
+  color: #6b7280;
+}
+
+.toggle-password:focus {
+  outline: none;
+}
+
+.toggle-password svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Links */
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #4338ca;
+}
+
+/* Buttons */
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  background-color: #4f46e5;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #4338ca;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #4f46e5;
+}
+
+.button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+`;
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -26,120 +237,163 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // React Router for navigation
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginAttempted, setLoginAttempted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (!email || !password) {
       setErrorMessage('Please enter both email and password');
       return;
     }
-
+    
     setIsLoading(true);
     setErrorMessage('');
-
+    setLoginAttempted(true);
+    
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("User logged in:", userCredential.user);
-
-      // Store auth status (optional)
-      localStorage.setItem('user', JSON.stringify(userCredential.user));
-
-      // Redirect to dashboard
-      navigate('/dashboard'); 
+      await signInWithEmailAndPassword(auth, email, password);
+      setIsLoggedIn(true);
     } catch (error) {
-      console.error(error);
-      setErrorMessage('Invalid email or password');
+      setIsLoggedIn(false);
+      
+      // Handle specific Firebase auth errors
+      switch (error.code) {
+        case 'auth/invalid-email':
+          setErrorMessage('Invalid email address format');
+          break;
+        case 'auth/user-disabled':
+          setErrorMessage('This account has been disabled');
+          break;
+        case 'auth/user-not-found':
+          setErrorMessage('No account found with this email');
+          break;
+        case 'auth/wrong-password':
+          setErrorMessage('Incorrect password');
+          break;
+        default:
+          setErrorMessage('Invalid email or password');
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Sign in to your account</h2>
+    <>
+      {/* Include the styles */}
+      <style>{styles}</style>
+      
+      <div className="login-container">
+        {isLoggedIn ? (
+          <div className="success-card">
+            <CheckCircle className="success-icon" />
+            <h2 className="success-title">Successfully Logged In!</h2>
+            <p className="success-message">Welcome back, {email}</p>
+            <button 
+              onClick={() => {
+                setIsLoggedIn(false);
+                setLoginAttempted(false);
+                setEmail('');
+                setPassword('');
+              }}
+              className="button"
+            >
+              Sign Out
+            </button>
           </div>
-          
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            {errorMessage && (
-              <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md">
-                {errorMessage}
+        ) : (
+          <div className="card">
+            <div className="card-content">
+              <div className="form-header">
+                <h2 className="form-title">Sign in to your account</h2>
               </div>
-            )}
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
-              <div className="relative mt-1">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <Mail className="w-5 h-5 text-gray-400" />
+              
+              <form className="form" onSubmit={handleSubmit}>
+                {errorMessage && (
+                  <div className="error-message">
+                    {errorMessage}
+                  </div>
+                )}
+                
+                <div className="form-group">
+                  <label htmlFor="email" className="form-label">
+                    Email address
+                  </label>
+                  <div className="input-wrapper">
+                    <div className="input-icon-left">
+                      <Mail />
+                    </div>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="input-field"
+                      placeholder="your@email.com"
+                      required
+                    />
+                  </div>
                 </div>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <div className="relative mt-1">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <Lock className="w-5 h-5 text-gray-400" />
+                
+                <div className="form-group">
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
+                  <div className="input-wrapper">
+                    <div className="input-icon-left">
+                      <Lock />
+                    </div>
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="input-field password-field"
+                      placeholder="••••••••"
+                      required
+                    />
+                    <div className="input-icon-right">
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="toggle-password"
+                      >
+                        {showPassword ? (
+                          <EyeOff />
+                        ) : (
+                          <Eye />
+                        )}
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="••••••••"
-                  required
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+
+                <div>
+                  <a href="#" className="forgot-password">
+                    Forgot your password?
+                  </a>
+                </div>
+
+                <div>
                   <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    type="submit"
+                    disabled={isLoading}
+                    className="button"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {isLoading ? 'Signing in...' : 'Sign in'}
                   </button>
                 </div>
-              </div>
+              </form>
             </div>
-
-            <div className="text-right">
-              <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 disabled:opacity-75"
-              >
-                {isLoading ? 'Signing in...' : 'Sign in'}
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
-export default LoginForm;
+export default LoginForm;

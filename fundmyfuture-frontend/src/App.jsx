@@ -1,20 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';  // Import your Landing Page component
-import LoginForm from './components/LoginForm'; // Import your LoginForm component
-import App from './App.jsx';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Route for LandingPage (Entry Page) */}
-        <Route path="/" element={<LandingPage />} />
+    <div>
+      {/* Add shared layout components like header, footer, or global components here */}
+      <header>
+        <h1>FundMyFuture</h1>
+        {/* Add navigation or other components if needed */}
+      </header>
 
-        {/* Route for LoginForm */}
-        <Route path="/login" element={<LoginForm />} />
-      </Routes>
-    </Router>
+      <main>
+        {/* You can also add common layout or global styles */}
+      </main>
+
+      <footer>
+        <p>&copy; 2025 FundMyFuture. All rights reserved.</p>
+      </footer>
+    </div>
   );
 }
 
